@@ -77,30 +77,36 @@ export function SourcesList({ sources }: { sources: Source[] }) {
                   <Inline md={s.md} />
                 </p>
                 <div className="mt-3 flex flex-col gap-1.5 text-[0.9375rem]">
-                  <p>
-                    <span className="text-muted-foreground">Ссылка: </span>
-                    {s.url ? (
+                  {s.url ? (
+                    <p>
+                      <span className="text-muted-foreground">Ссылка: </span>
                       <a href={s.url} className="break-all text-primary underline underline-offset-4" rel="noopener noreferrer" target="_blank">
                         {s.url}
                       </a>
-                    ) : (
-                      <span>ссылка не найдена</span>
-                    )}
-                  </p>
-                  <p>
-                    <span className="text-muted-foreground">Где упоминается: </span>
-                    {s.mentions.length ? (
-                      s.mentions.map((m, i) => (
+                    </p>
+                  ) : null}
+                  {s.mentions.length ? (
+                    <p>
+                      <span className="text-muted-foreground">Где упоминается: </span>
+                      {s.mentions.map((m, i) => (
                         <span key={m.href}>
                           {i > 0 ? ", " : ""}
                           <Link href={m.href} className="text-primary underline underline-offset-4">
                             {m.label}
                           </Link>
                         </span>
-                      ))
-                    ) : (
-                      <span>в тексте работы не упоминается</span>
-                    )}
+                      ))}
+                    </p>
+                  ) : null}
+                  <p className="no-print">
+                    <a
+                      href={`https://www.google.com/search?tbm=bks&q=${encodeURIComponent(s.searchQuery)}`}
+                      className="text-primary underline underline-offset-4"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Искать в Google Книгах
+                    </a>
                   </p>
                 </div>
               </div>
